@@ -1,0 +1,19 @@
+#cloud-config
+
+runcmd:
+- curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+write_files:
+- path: /usr/local/bin/download_blob.sh
+  permissions: '0755'
+  content: |
+    #! /bin/sh
+
+    mkdir -p input
+
+    az login --identity
+    az storage blob download-batch --auth-mode login --account-name ${storage_account} --source ${container_name} --destination ~/input/
+    az storage blob delete-batch --auth-mode login --account-name ${storage_account} --source ${container_name}
+- path: /etc/cron.d/az_storage
+  content: |
+    * * * * * ${username} /usr/local/bin/download_blob.sh
