@@ -36,7 +36,11 @@ The test validates the VM can access the SA through its PE: the VM shall delete 
 1. Login on Azure:
 
     - option 1: run `az login`
-    - option 2: export the following environment variables: ``
+    - option 2: export the following environment variables:
+      - `ARM_CLIENT_ID`
+      - `ARM_CLIENT_SECRET`
+      - `ARM_TENANT_ID`
+      - `ARM_SUBSCRIPTION_ID`
 
 1. Deploy:
 

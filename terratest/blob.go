@@ -49,11 +49,10 @@ func waitForBlobToBeRemoved(accountName string, containerName string, blobToFind
 		return err
 	}
 
-	pager := containerClient.ListBlobsFlat(&azblob.ContainerListBlobFlatSegmentOptions{})
-
 	ctx := context.Background()
-	retries := 1000
+	retries := 500
 	for retries > 0 {
+		pager := containerClient.ListBlobsFlat(&azblob.ContainerListBlobFlatSegmentOptions{})
 		for pager.NextPage(ctx) {
 
 			resp := pager.PageResponse()
@@ -67,17 +66,13 @@ func waitForBlobToBeRemoved(accountName string, containerName string, blobToFind
 			}
 
 			if blobExist {
-				time.Sleep(300 * time.Millisecond)
+				time.Sleep(500 * time.Millisecond)
 				retries--
 				break
 			} else {
 				return nil
 			}
 		}
-	}
-
-	if err = pager.Err(); err != nil {
-		return fmt.Errorf("list blobs: %w", err)
 	}
 
 	return fmt.Errorf("max attempts reached: blob '%s/%s/%s' is still present", accountName, containerName, blobToFind)

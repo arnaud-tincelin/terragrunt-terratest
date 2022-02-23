@@ -21,10 +21,15 @@ func TestVM(t *testing.T) {
 		TerraformDir:    workingDir,
 	}))
 
-	// defer test_structure.RunTestStage(t, "destroy", func() {
-	// 	terraformOptions := test_structure.LoadTerraformOptions(t, workingDir)
-	// 	terraform.TgDestroyAll(t, terraformOptions)
-	// })
+	test_structure.SaveTerraformOptions(t, basementDir, terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformBinary: "terragrunt",
+		TerraformDir:    basementDir,
+	}))
+
+	defer test_structure.RunTestStage(t, "destroy", func() {
+		terraformOptions := test_structure.LoadTerraformOptions(t, workingDir)
+		terraform.TgDestroyAll(t, terraformOptions)
+	})
 
 	test_structure.RunTestStage(t, "apply", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, workingDir)
