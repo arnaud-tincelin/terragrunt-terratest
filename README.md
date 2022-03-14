@@ -15,12 +15,12 @@ The test validates the VM can access the SA through its PE: the VM shall delete 
 1. create a storage account & and storage container on Azure to store the remote state
 1. create the `state.yaml` file at the root of the [terragrunt](./terragrunt) folder from the following template:
 
-    ```yaml
-    subscription_id: <subscription where the storage account exists>
-    resource_group_name: <RG where the storage account exists>
-    storage_account_name: <name of the SA created at the step1>
-    container_name: <container within the SA>
-    ```
+  ```yaml
+  subscription_id: <subscription where the storage account exists>
+  resource_group_name: <RG where the storage account exists>
+  storage_account_name: <name of the SA created at the step1>
+  container_name: <container within the SA>
+  ```
 
 1. create the `env.hcl` file in the folder of your choice: [dev](./terragrunt/dev) or [prod](./terragrunt/dev) from the following template:
 

@@ -15,6 +15,7 @@ func TestVM(t *testing.T) {
 
 	const workingDir = "../terragrunt/dev/"
 	basementDir := path.Join(workingDir, "basement")
+	vmDir := path.Join(workingDir, "vm")
 
 	test_structure.SaveTerraformOptions(t, workingDir, terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformBinary: "terragrunt",
@@ -24,6 +25,11 @@ func TestVM(t *testing.T) {
 	test_structure.SaveTerraformOptions(t, basementDir, terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformBinary: "terragrunt",
 		TerraformDir:    basementDir,
+	}))
+
+	test_structure.SaveTerraformOptions(t, vmDir, terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformBinary: "terragrunt",
+		TerraformDir:    vmDir,
 	}))
 
 	defer test_structure.RunTestStage(t, "destroy", func() {
