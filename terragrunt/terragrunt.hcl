@@ -19,7 +19,7 @@ generate "providers" {
   contents  = <<EOF
 provider "azurerm" {
   features {}
-  subscription_id = "${local.remote_state.subscription_id}"
+  subscription_id = "${local.env.subscription_id}"
 }
 EOF
 }

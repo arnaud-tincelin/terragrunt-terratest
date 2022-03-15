@@ -12,26 +12,26 @@ import (
 func TestVM(t *testing.T) {
 	t.Parallel()
 
-	const workingDir = "../terragrunt/dev/"
-	basementDir := path.Join(workingDir, "basement")
+	const devPath = "../terragrunt/dev/"
+	basementDir := path.Join(devPath, "basement")
 
-	working := &terraform.Options{
+	devEnv := &terraform.Options{
 		TerraformBinary: "terragrunt",
-		TerraformDir:    workingDir,
+		TerraformDir:    devPath,
 	}
 
-	base := &terraform.Options{
+	basement := &terraform.Options{
 		TerraformBinary: "terragrunt",
 		TerraformDir:    basementDir,
 	}
 
-	defer terraform.TgDestroyAll(t, working)
+	defer terraform.TgDestroyAll(t, devEnv)
 
-	terraform.TgApplyAll(t, working)
+	terraform.TgApplyAll(t, devEnv)
 
 	storageAccount := new(StorageAccountOutput)
-	terraform.OutputStruct(t, base, "storage", storageAccount)
-	containerName := terraform.Output(t, base, "storage_container_name")
+	terraform.OutputStruct(t, basement, "storage", storageAccount)
+	containerName := terraform.Output(t, basement, "storage_container_name")
 
 	require.NoError(t, upload(storageAccount.Name, containerName, "helloworld.txt", []byte("Hello world"), nil), "upload data file")
 	require.NoError(t, waitForBlobToBeRemoved(storageAccount.Name, containerName, "helloworld.txt"))

@@ -29,16 +29,6 @@ output "storage_container_name" {
   value = azurerm_storage_container.demo.name
 }
 
-# resource "azurerm_storage_blob" "demo" {
-#   name                   = "demo.txt"
-#   storage_account_name   = azurerm_storage_account.demo.name
-#   storage_container_name = azurerm_storage_container.demo.name
-#   type                   = "Block"
-#   source_content         = <<EOF
-#   This is an example blob
-#   EOF
-# }
-
 resource "azurerm_private_dns_zone" "privatelink_blob" {
   name                = "privatelink.blob.core.windows.net"
   resource_group_name = azurerm_resource_group.demo.name

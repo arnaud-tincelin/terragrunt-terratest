@@ -13,7 +13,7 @@ dependency "basement" {
 locals {}
 
 inputs = {
-  name      = "db"
+  name      = "database"
   rg_name   = dependency.basement.outputs.rg_name
   subnet_id = dependency.basement.outputs.subnet_id
   storage_account = merge(dependency.basement.outputs.storage, {
