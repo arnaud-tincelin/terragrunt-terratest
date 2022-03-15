@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestVM(t *testing.T) {
+func TestVMAccessToSA(t *testing.T) {
 	t.Parallel()
 
 	const devPath = "../terragrunt/dev/"

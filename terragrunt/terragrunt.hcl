@@ -5,7 +5,7 @@ terraform_version_constraint = ">= 1.0.0"
 remote_state {
   backend = "azurerm"
   config = merge(local.remote_state, {
-    key = "demo/${local.env.env}/${basename(get_terragrunt_dir())}.tfstate"
+    key = "demo/${local.env.env}/${basename(get_terragrunt_dir())}.tfstate" // example: demo/prod/basement.tfstate
   })
   generate = {
     path      = "backend.tf"
